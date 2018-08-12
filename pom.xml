@@ -10,6 +10,7 @@
     <modules>
         <module>author-service</module>
         <module>category-service</module>
+        <module>new-service</module>
     </modules>
     <packaging>pom</packaging>
 
