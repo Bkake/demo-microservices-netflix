@@ -1,0 +1,19 @@
+server:
+  port: ${PORT:8761}
+
+spring:
+  application:
+    name: EurekaServer
+  logging:
+    level:
+      org.springframework: WARN
+      org.hibernate: WARN
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
