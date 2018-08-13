@@ -16,3 +16,10 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${DISCOVERY_URL:http://localhost:8761}/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 10
