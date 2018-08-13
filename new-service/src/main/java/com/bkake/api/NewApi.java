@@ -53,7 +53,7 @@ public class NewApi {
                     .build();
     }
 
-    @GetMapping(value = "author/{authorId}/news")
+    @GetMapping(value = "/news/author/{authorId}")
     public List<NewsDto> findNewsByAuthorId(@PathVariable Long authorId) {
         return repository.findAllNewsByAuthorId(authorId).stream()
                 .map(n -> ImmutableNewsDto.builder()
@@ -66,7 +66,7 @@ public class NewApi {
 
     }
 
-    @GetMapping(value = "category/{categoryId}/news")
+    @GetMapping(value = "/news/category/{categoryId}")
     public List<NewsDto> findNewsByCategoryId(@PathVariable Long categoryId) {
         return repository.findAllNewsByCategoryId(categoryId).stream()
                 .map(n -> ImmutableNewsDto.builder()
