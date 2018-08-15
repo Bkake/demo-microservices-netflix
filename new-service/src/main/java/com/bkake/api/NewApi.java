@@ -1,7 +1,5 @@
 package com.bkake.api;
 
-import com.bkake.dto.AuthorDto;
-import com.bkake.dto.CategoryDto;
 import com.bkake.dto.ImmutableNewsDto;
 import com.bkake.dto.NewsDto;
 import com.bkake.intercomm.AuthorClient;
@@ -35,13 +33,11 @@ public class NewApi {
                             .id(n.getId())
                             .title(n.getTitle())
                             .detail(n.getDetail())
-                            .author(authorClient.getAuthorById(n.getAuthorId()))
-                            .category(categoryClient.getCategoryById(n.getCategoryId()))
                             .build()
                 ).collect(Collectors.toList());
     }
 
-    @GetMapping(value = "/news{id}")
+    @GetMapping(value = "/news/{id}")
     public NewsDto findNewsById(@PathVariable Long id) {
         News news  = repository.findOne(id);
         return  ImmutableNewsDto.builder()
@@ -52,31 +48,5 @@ public class NewApi {
                     .category(categoryClient.getCategoryById(news.getCategoryId()))
                     .build();
     }
-
-    @GetMapping(value = "/news/author/{authorId}")
-    public List<NewsDto> findNewsByAuthorId(@PathVariable Long authorId) {
-        return repository.findAllNewsByAuthorId(authorId).stream()
-                .map(n -> ImmutableNewsDto.builder()
-                        .id(n.getId())
-                        .title(n.getTitle())
-                        .detail(n.getDetail())
-                        .author(authorClient.getAuthorById(n.getAuthorId()))
-                        .build()
-                ).collect(Collectors.toList());
-
-    }
-
-    @GetMapping(value = "/news/category/{categoryId}")
-    public List<NewsDto> findNewsByCategoryId(@PathVariable Long categoryId) {
-        return repository.findAllNewsByCategoryId(categoryId).stream()
-                .map(n -> ImmutableNewsDto.builder()
-                        .id(n.getId())
-                        .title(n.getTitle())
-                        .detail(n.getDetail())
-                        .author(authorClient.getAuthorById(n.getAuthorId()))
-                        .build()
-                ).collect(Collectors.toList());
-    }
-
 
 }

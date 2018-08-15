@@ -31,7 +31,6 @@ public class NewsRepositoryTest {
     public void findAllNewsTest() {
         List<News> news = repository.findAll();
         assertThat(news.isEmpty()).isFalse();
-        assertThat(news.size()).isEqualTo(1);
     }
 
 
