@@ -9,19 +9,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 public class NewApi {
     @Autowired
     private NewsService newsService;
 
+    protected static Logger logger = LoggerFactory.getLogger(NewApi.class.getName());
+
     @GetMapping(value = "/news")
     public List<NewsDto> findNews() {
-        return newsService.findNews();
+        logger.info("New.findNews()");
+        List<NewsDto> newsDtos = newsService.findNews();
+        logger.info(String.format("New.findNews(): %s", newsDtos.toString()));
+        return newsDtos;
     }
 
     @GetMapping(value = "/news/{id}")
     public NewsDto findNewsById(@PathVariable Long id) {
-        return newsService.findNewsById(id);
+        logger.info(String.format("New.findNewsById(%s)", id));
+        NewsDto newsDto = newsService.findNewsById(id);
+        logger.info(String.format("New.findNewsById: %s", newsDto.toString()));
+        return newsDto;
     }
 
 }
