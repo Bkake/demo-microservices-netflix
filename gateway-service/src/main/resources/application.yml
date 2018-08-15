@@ -9,15 +9,9 @@ spring:
           org.hibernate: WARN
 eureka:
   client:
-    registerWithEureka: true
-    fetchRegistry: true
     serviceUrl:
-      defaultZone: http://127.0.0.1:8761/eureka/
-  instance:
-    leaseRenewalIntervalInSeconds: 1
-    leaseExpirationDurationInSeconds: 2
-    metadataMap:
-        instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}:${random.value}}
+      defaultZone: http://discovery:8761/eureka/
+    registerWithEureka: false
 
 ribbon:
   eureka:
@@ -29,7 +23,7 @@ management:
 
 zuul:
   routes:
-    news:
+    new:
       path: /news/**
       serviceId: new-service
       stripPrefix: false
@@ -41,3 +35,5 @@ zuul:
       path: /categories/**
       serviceId: category-service
       stripPrefix: false
+
+

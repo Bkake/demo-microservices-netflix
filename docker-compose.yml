@@ -1,0 +1,44 @@
+version: "3.1"
+services:
+
+  discovery:
+    build: ./discovery-service
+    ports:
+      - "8761:8761"
+
+  category-service:
+    build: ./category-service
+    ports:
+      - "8181:8181"
+    depends_on:
+      - "discovery"
+
+  author-service:
+    build: ./author-service
+    ports:
+      - "8282:8282"
+    depends_on:
+      - "discovery"
+
+  new-service:
+    build: ./new-service
+    ports:
+      - "8383:8383"
+    depends_on:
+      - "discovery"
+      - "category-service"
+      - "author-service"
+
+  gateway:
+    build: ./gateway-service
+    ports:
+      - "8762:8762"
+    depends_on:
+      - "discovery"
+      - "category-service"
+      - "author-service"
+      - "new-service"
+
+
+
+
