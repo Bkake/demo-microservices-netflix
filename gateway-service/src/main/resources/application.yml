@@ -8,6 +8,8 @@ spring:
       ROOT: INFO
       org.springframework.web: DEBUG
       org.hibernate: DEBUG
+  zipkin:
+    base-url: http://zipkin:9411/
   sleuth:
     sampler:
       probability: 1
@@ -39,5 +41,4 @@ zuul:
       path: /categories/**
       serviceId: category-service
       stripPrefix: false
-
 

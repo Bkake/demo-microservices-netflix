@@ -12,6 +12,7 @@ services:
       - "8181:8181"
     depends_on:
       - "discovery"
+      - "zipkin"
 
   author-service:
     build: ./author-service
@@ -19,6 +20,7 @@ services:
       - "8282:8282"
     depends_on:
       - "discovery"
+      - "zipkin"
 
   new-service:
     build: ./new-service
@@ -28,6 +30,7 @@ services:
       - "discovery"
       - "category-service"
       - "author-service"
+      - "zipkin"
 
   gateway:
     build: ./gateway-service
@@ -38,7 +41,9 @@ services:
       - "category-service"
       - "author-service"
       - "new-service"
+      - "zipkin"
 
-
-
-
+  zipkin:
+    build: ./zipkin-service
+    ports:
+      - "9411:9411"

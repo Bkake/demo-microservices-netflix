@@ -10,6 +10,8 @@ spring:
     level:
       org.springframework: WARN
       org.hibernate: WARN
+  zipkin:
+    base-url: http://zipkin:9411/
   sleuth:
     sampler:
       probability: 1
