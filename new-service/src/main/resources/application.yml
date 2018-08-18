@@ -10,6 +10,8 @@ spring:
     level:
       org.springframework: WARN
       org.hibernate: WARN
+      com.netflix.ribbon: DEBUG
+      com.netflix.hystrix: DEBUG
   zipkin:
     base-url: http://zipkin:9411/
   sleuth:
@@ -31,4 +33,17 @@ eureka:
 
 ribbon:
   eureka:
+    enabled: true
+  #MaxAutoRetries: 0
+  #MaxAutoRetriesNextServer: 0
+  #ReadTimeout: 2000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream, info, health
+
+feign:
+  hystrix:
     enabled: true

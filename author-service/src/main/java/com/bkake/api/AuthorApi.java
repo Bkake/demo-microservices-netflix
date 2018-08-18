@@ -2,6 +2,7 @@ package com.bkake.api;
 
 import com.bkake.model.Author;
 import com.bkake.repository.AuthorRepository;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class AuthorApi {
     protected static Logger logger = LoggerFactory.getLogger(AuthorApi.class.getName());
 
     @GetMapping(value = "/authors")
+    @HystrixCommand
     public List<Author> findAllAuthors() {
         logger.info("Author.findAllAuthors()");
         List<Author> authors = repository.findAll();
@@ -27,6 +29,7 @@ public class AuthorApi {
     }
 
     @GetMapping(value = "/authors/{id}")
+    @HystrixCommand
     public Author findAuthorById(@PathVariable Long id) {
         logger.info(String.format("Author.findAuthorById(%s)", id));
         Author author = repository.findOne(id);

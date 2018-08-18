@@ -6,6 +6,7 @@ import com.bkake.intercomm.AuthorClient;
 import com.bkake.intercomm.CategoryClient;
 import com.bkake.model.News;
 import com.bkake.repository.NewsRepository;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ public class NewApi {
 
 
     @GetMapping(value = "/news")
+    @HystrixCommand
     public List<NewsDto> findNews() {
         return repository.findAll().stream()
                 .map(n -> ImmutableNewsDto.builder()
@@ -38,6 +40,7 @@ public class NewApi {
     }
 
     @GetMapping(value = "/news/{id}")
+    @HystrixCommand
     public NewsDto findNewsById(@PathVariable Long id) {
         News news  = repository.findOne(id);
         return  ImmutableNewsDto.builder()
