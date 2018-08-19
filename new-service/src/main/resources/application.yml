@@ -39,10 +39,8 @@ ribbon:
   #ReadTimeout: 2000
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: hystrix.stream, info, health
+  security:
+    enabled: false
 
 feign:
   hystrix:

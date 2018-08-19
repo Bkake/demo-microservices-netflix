@@ -34,7 +34,5 @@ ribbon:
     enabled: true
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: hystrix.stream, info, health
+  security:
+    enabled: false

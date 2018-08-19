@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: EurekaServer
+  boot:
+    admin:
+      context-path: /admin
   logging:
     level:
       org.springframework: WARN
@@ -14,6 +17,10 @@ eureka:
     hostname: localhost
   client:
     registerWithEureka: false
-    fetchRegistry: false
+    fetchRegistry: true
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+management:
+  security:
+    enabled: false

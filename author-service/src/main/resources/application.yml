@@ -28,13 +28,12 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://discovery:8761/eureka/
+
 ribbon:
   eureka:
     enabled: true
 
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: hystrix.stream, info, health
+  security:
+    enabled: false
