@@ -2,48 +2,50 @@ version: "3.1"
 services:
 
   discovery:
-    build: ./discovery-service
+    image: bkake/discovery-service
     ports:
       - "8761:8761"
 
   category-service:
-    build: ./category-service
+    image: bkake/category-service
     ports:
       - "8181:8181"
     depends_on:
       - "discovery"
       - "zipkin"
+    env_file:
+      - ./eureka.env
 
   author-service:
-    build: ./author-service
+    image: bkake/author-service
     ports:
       - "8282:8282"
     depends_on:
       - "discovery"
       - "zipkin"
+    env_file:
+      - ./eureka.env
 
   new-service:
-    build: ./new-service
+    image: bkake/new-service
     ports:
       - "8383:8383"
     depends_on:
-      - "discovery"
       - "category-service"
       - "author-service"
-      - "zipkin"
+    env_file:
+      - ./eureka.env
 
   gateway:
-    build: ./gateway-service
+    image: bkake/gateway-service
     ports:
       - "8762:8762"
     depends_on:
-      - "discovery"
-      - "category-service"
-      - "author-service"
       - "new-service"
-      - "zipkin"
+    env_file:
+      - ./eureka.env
 
   zipkin:
-    build: ./zipkin-service
+    image: bkake/zipkin-service
     ports:
       - "9411:9411"

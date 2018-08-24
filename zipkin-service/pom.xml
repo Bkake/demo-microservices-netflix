@@ -12,6 +12,10 @@
     <artifactId>zipkin-service</artifactId>
     <packaging>jar</packaging>
 
+    <properties>
+        <docker.image.prefix>bkake</docker.image.prefix>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -33,10 +37,42 @@
     </dependencies>
 
     <build>
+        <finalName>zipkin-service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.26.0</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <name>${docker.image.prefix}/${project.build.finalName}</name>
+                            <build>
+                                <dockerFileDir>${project.basedir}</dockerFileDir>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>build</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>remove</id>
+                        <phase>post-clean</phase>
+                        <goals>
+                            <goal>remove</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: EurekaServer
+    name: discovery-service
   boot:
     admin:
       context-path: /admin
@@ -14,12 +14,10 @@ spring:
 
 eureka:
   instance:
-    hostname: localhost
+    preferIpAddress: true
   client:
     registerWithEureka: false
     fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 
 management:
   security:

@@ -1,7 +1,6 @@
 FROM openjdk:8-jre-alpine
 MAINTAINER Bangaly KAKE <bangaly.kake@gmail.com>
-COPY ./target/discovery-service-1.0-SNAPSHOT.jar /app/
-WORKDIR /app/
+COPY target/discovery-service.jar discovery-service.jar
 EXPOSE 8761
-CMD ["java", "-jar", "discovery-service-1.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "discovery-service.jar"]
 
