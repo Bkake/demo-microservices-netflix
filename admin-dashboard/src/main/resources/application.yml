@@ -1,0 +1,18 @@
+server:
+  port: 8764
+
+spring:
+  application:
+    name: admin-dashboard
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URL}
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+    preferIpAddress: true
+
+management:
+  security:
+    enabled: false

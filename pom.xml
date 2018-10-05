@@ -15,6 +15,7 @@
         <module>gateway-service</module>
         <module>zipkin-service</module>
         <module>hystrix-dashboard</module>
+        <module>admin-dashboard</module>
     </modules>
     <packaging>pom</packaging>
 
