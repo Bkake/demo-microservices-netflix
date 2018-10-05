@@ -4,9 +4,6 @@ server:
 spring:
   application:
     name: discovery-service
-  boot:
-    admin:
-      context-path: /admin
   logging:
     level:
       org.springframework: WARN
@@ -17,7 +14,7 @@ eureka:
     preferIpAddress: true
   client:
     registerWithEureka: false
-    fetchRegistry: true
+    fetchRegistry: false
 
 management:
   security:
