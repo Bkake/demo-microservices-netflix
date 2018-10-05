@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Component
@@ -51,24 +52,18 @@ public class NewsService {
     }
 
     public List<NewsDto> findNewsFallback() {
-        return Arrays.asList(ImmutableNewsDto.builder()
-                .id(0L)
-                .title("findNews fallback Title")
-                .detail("findNews fallback Description")
-                .author(authorClient.getAuthorById(0L))
-                .category(categoryClient.getCategoryById(0L))
-                .build());
+        return Arrays.asList(getFallBackData.get());
     }
 
-
     public NewsDto findNewsByIdFallback(Long id) {
-        return  ImmutableNewsDto.builder()
+        return  getFallBackData.get();
+    }
+
+    private Supplier<NewsDto> getFallBackData = () -> ImmutableNewsDto.builder()
                 .id(0L)
                 .title("findNewsById fallback Title")
                 .detail("findNewsById fallback Description")
                 .author(authorClient.getAuthorById(0L))
                 .category(categoryClient.getCategoryById(0L))
                 .build();
-    }
-
 }
