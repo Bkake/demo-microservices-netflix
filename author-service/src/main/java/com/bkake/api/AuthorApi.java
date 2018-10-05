@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 
 @RestController
 public class AuthorApi {
@@ -20,7 +22,7 @@ public class AuthorApi {
     protected static Logger logger = LoggerFactory.getLogger(AuthorApi.class.getName());
 
     @GetMapping(value = "/authors")
-    @HystrixCommand
+    @HystrixCommand(fallbackMethod = "findAllAuthorsFallback")
     public List<Author> findAllAuthors() {
         logger.info("Author.findAllAuthors()");
         List<Author> authors = repository.findAll();
@@ -29,11 +31,27 @@ public class AuthorApi {
     }
 
     @GetMapping(value = "/authors/{id}")
-    @HystrixCommand
+    @HystrixCommand(fallbackMethod = "findAuthorByIdFallback")
     public Author findAuthorById(@PathVariable Long id) {
         logger.info(String.format("Author.findAuthorById(%s)", id));
         Author author = repository.findOne(id);
         logger.info(String.format("Author.findAuthorById: %s", author));
         return repository.findOne(id);
     }
+
+    public List<Author> findAllAuthorsFallback() {
+        return Arrays.asList(getFallBackData.get());
+    }
+
+    public Author findAuthorByIdFallback(Long id) {
+        return getFallBackData.get();
+    }
+
+    private Supplier<Author> getFallBackData = () -> {
+        Author authorFallBack = new Author();
+        authorFallBack.setId(999L);
+        authorFallBack.setFirstName("Author fallBack FirstName");
+        authorFallBack.setLastName("Author fallBack LastName");
+        return authorFallBack;
+    };
 }
