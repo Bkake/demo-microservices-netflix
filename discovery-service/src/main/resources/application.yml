@@ -10,11 +10,18 @@ spring:
       org.hibernate: WARN
 
 eureka:
+  numberRegistrySyncRetries: 1
   instance:
     preferIpAddress: true
+    hostname: discovery
   client:
+    registryFetchIntervalSeconds: 5
     registerWithEureka: false
     fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    server:
+      enable-self-preservation: false
 
 management:
   security:
