@@ -18,7 +18,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_URL}
-    registerWithEureka: false
+    registerWithEureka: true
     fetchRegistry: true
   instance:
     leaseRenewalIntervalInSeconds: 5
@@ -27,6 +27,21 @@ eureka:
 ribbon:
   eureka:
     enabled: true
+  ConnectTimeout: 4000
+  ReadTimeout: 12000
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 1
+  MaxTotalHttpConnections: 500
+  MaxConnectionsPerHost: 100
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 80000
+
 
 management:
   security:
