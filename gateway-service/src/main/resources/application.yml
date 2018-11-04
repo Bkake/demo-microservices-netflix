@@ -9,7 +9,10 @@ spring:
       org.springframework.web: DEBUG
       org.hibernate: DEBUG
   zipkin:
-    base-url: http://zipkin:9411/
+    locator:
+      discovery:
+        enabled: true
+      base-url: ${ZIPKIN_URL}
   sleuth:
     sampler:
       probability: 1

@@ -19,6 +19,7 @@ services:
       - backend
     env_file:
       - ./eureka.env
+      - ./zipkin.env
 
   author-service:
     image: bkake/author-service
@@ -31,6 +32,7 @@ services:
       - backend
     env_file:
       - ./eureka.env
+      - ./zipkin.env
 
   new-service:
     image: bkake/new-service
@@ -43,6 +45,7 @@ services:
       - backend
     env_file:
       - ./eureka.env
+      - ./zipkin.env
 
   gateway:
     image: bkake/gateway-service
@@ -58,13 +61,18 @@ services:
       - backend
     env_file:
       - ./eureka.env
+      - ./zipkin.env
 
   zipkin:
     image: bkake/zipkin-service
     ports:
       - "9411:9411"
+    depends_on:
+      - discovery
     networks:
       - backend
+    env_file:
+      - ./eureka.env
 
   hystrix-dashboard:
     image: bkake/hystrix-dashboard

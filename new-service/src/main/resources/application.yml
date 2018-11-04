@@ -13,7 +13,10 @@ spring:
       com.netflix.ribbon: DEBUG
       com.netflix.hystrix: DEBUG
   zipkin:
-    base-url: http://zipkin:9411/
+    locator:
+      discovery:
+        enabled: true
+    base-url: ${ZIPKIN_URL}
   sleuth:
     sampler:
       probability: 1

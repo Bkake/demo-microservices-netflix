@@ -10,11 +10,16 @@ spring:
     level:
       org.springframework: WARN
       org.hibernate: WARN
+
   zipkin:
-    base-url: http://zipkin:9411/
+      locator:
+        discovery:
+           enabled: true
+      base-url: ${ZIPKIN_URL}
   sleuth:
     sampler:
       probability: 1
+
   datasource:
     url: jdbc:h2:mem:auhtor-db
     username: sa
