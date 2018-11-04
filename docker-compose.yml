@@ -5,14 +5,18 @@ services:
     image: bkake/discovery-service
     ports:
       - "8761:8761"
+    networks:
+      - backend
 
   category-service:
     image: bkake/category-service
     ports:
       - "8181:8181"
     depends_on:
-      - "discovery"
-      - "zipkin"
+      - discovery
+      - zipkin
+    networks:
+      - backend
     env_file:
       - ./eureka.env
 
@@ -21,8 +25,10 @@ services:
     ports:
       - "8282:8282"
     depends_on:
-      - "discovery"
-      - "zipkin"
+      - discovery
+      - zipkin
+    networks:
+      - backend
     env_file:
       - ./eureka.env
 
@@ -31,8 +37,10 @@ services:
     ports:
       - "8383:8383"
     depends_on:
-      - "category-service"
-      - "author-service"
+      - discovery
+      - zipkin
+    networks:
+      - backend
     env_file:
       - ./eureka.env
 
@@ -41,7 +49,13 @@ services:
     ports:
       - "8762:8762"
     depends_on:
-      - "new-service"
+      - discovery
+      - zipkin
+      - category-service
+      - author-service
+      - new-service
+    networks:
+      - backend
     env_file:
       - ./eureka.env
 
@@ -49,3 +63,31 @@ services:
     image: bkake/zipkin-service
     ports:
       - "9411:9411"
+    networks:
+      - backend
+
+  hystrix-dashboard:
+    image: bkake/hystrix-dashboard
+    ports:
+      - "8763:8763"
+    depends_on:
+      - discovery
+    networks:
+      - backend
+    env_file:
+      - ./eureka.env
+
+  admin-dashboard:
+    image: bkake/admin-dashboard
+    ports:
+      - "8764:8764"
+    depends_on:
+      - discovery
+    networks:
+      - backend
+    env_file:
+      - ./eureka.env
+
+networks:
+  backend:
+    driver: bridge
