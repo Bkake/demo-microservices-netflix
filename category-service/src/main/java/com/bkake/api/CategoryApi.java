@@ -3,6 +3,8 @@ package com.bkake.api;
 import com.bkake.model.Category;
 import com.bkake.repository.CategoryRepository;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
+@Api(description = "API for operations on categories")
 @RestController
 public class CategoryApi {
     @Autowired
@@ -22,6 +25,7 @@ public class CategoryApi {
 
 
 
+    @ApiOperation(value = "Get all categories")
     @GetMapping(value = "/categories")
     @HystrixCommand(fallbackMethod = "findAllCategoryFallback")
     public List<Category> findAllCategory() {
@@ -29,6 +33,8 @@ public class CategoryApi {
         return repository.findAll();
     }
 
+
+    @ApiOperation(value = "Get an category by his ID")
     @GetMapping(value = "/categories/{id}")
     @HystrixCommand(fallbackMethod = "findCategoryByIdFallback")
     public Category findCategoryById(@PathVariable Long id) {

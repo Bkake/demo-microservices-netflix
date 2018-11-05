@@ -10,6 +10,7 @@ eureka:
     serviceUrl:
       defaultZone: ${EUREKA_URL}
   instance:
+    instanceId: ${spring.application.name}:${random.value}
     leaseRenewalIntervalInSeconds: 5
     preferIpAddress: true
 

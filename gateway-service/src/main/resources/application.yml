@@ -24,6 +24,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
   instance:
+    instanceId: ${spring.application.name}:${random.value}
     leaseRenewalIntervalInSeconds: 5
     preferIpAddress: true
 
@@ -64,4 +65,5 @@ zuul:
       path: /categories/**
       serviceId: category-service
       stripPrefix: false
+
 
