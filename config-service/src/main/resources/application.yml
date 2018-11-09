@@ -1,0 +1,16 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Bkake/microservice-configuration.git
+          username: ${GIT_HUB_USERNAME}
+          password: ${GIT_HUB_PASSWORD}
+          searchPaths:
+            - "*-service"
+            - "*-dashboard"
