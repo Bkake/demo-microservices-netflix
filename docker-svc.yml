@@ -1,18 +1,22 @@
 version: "3.1"
 services:
-
   discovery:
     image: bkake/discovery-service
     ports:
       - "8761:8761"
+    depends_on:
+      - config-service
     networks:
       - backend
+    env_file:
+      - ./config.env
 
   category-service:
     image: bkake/category-service
     ports:
       - "8181:8181"
     depends_on:
+      - config-service
       - discovery
       - zipkin
     networks:
@@ -20,12 +24,14 @@ services:
     env_file:
       - ./eureka.env
       - ./zipkin.env
+      - ./config.env
 
   author-service:
     image: bkake/author-service
     ports:
       - "8282:8282"
     depends_on:
+      - config-service
       - discovery
       - zipkin
     networks:
@@ -33,12 +39,14 @@ services:
     env_file:
       - ./eureka.env
       - ./zipkin.env
+      - ./config.env
 
   new-service:
     image: bkake/new-service
     ports:
       - "8383:8383"
     depends_on:
+      - config-service
       - discovery
       - zipkin
     networks:
@@ -46,12 +54,14 @@ services:
     env_file:
       - ./eureka.env
       - ./zipkin.env
+      - ./config.env
 
   gateway:
     image: bkake/gateway-service
     ports:
       - "8762:8762"
     depends_on:
+      - config-service
       - discovery
       - zipkin
       - category-service
@@ -62,40 +72,47 @@ services:
     env_file:
       - ./eureka.env
       - ./zipkin.env
+      - ./config.env
 
   zipkin:
     image: bkake/zipkin-service
     ports:
       - "9411:9411"
     depends_on:
+      - config-service
       - discovery
     networks:
       - backend
     env_file:
       - ./eureka.env
+      - ./config.env
 
   hystrix-dashboard:
     image: bkake/hystrix-dashboard
     ports:
       - "8763:8763"
     depends_on:
+      - config-service
       - discovery
     networks:
       - backend
     env_file:
       - ./eureka.env
+      - ./config.env
 
   admin-dashboard:
     image: bkake/admin-dashboard
     ports:
       - "8764:8764"
     depends_on:
+      - config-service
       - discovery
     networks:
       - backend
     env_file:
       - ./eureka.env
+      - ./config.env
 
-networks:
-  backend:
-    driver: bridge
+#networks:
+#  backend:
+#    driver: bridge

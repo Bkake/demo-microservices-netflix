@@ -1,0 +1,20 @@
+server:
+  port: 8181
+
+spring:
+  application:
+    name: category-service
+
+  datasource:
+    url: jdbc:h2:mem:category-db
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+  cloud:
+    config:
+      uri: http://config-service:8888

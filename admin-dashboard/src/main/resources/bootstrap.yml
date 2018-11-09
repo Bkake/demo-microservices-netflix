@@ -1,0 +1,9 @@
+server:
+  port: 8764
+
+spring:
+  application:
+    name: admin-dashboard
+  cloud:
+    config:
+      uri: http://config-service:8888
