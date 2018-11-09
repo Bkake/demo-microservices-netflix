@@ -12,4 +12,5 @@ cd ./new-service; mvn clean package -DskipTests; cd -
 cd ./gateway-service; mvn clean package -DskipTests; cd -
 cd ./hystrix-dashboard; mvn clean package -DskipTests; cd -
 cd ./admin-dashboard; mvn clean package -DskipTests; cd -
+cd ./config-service; mvn clean package -DskipTests; cd -
 find . -name *SNAPSHOT.jar -exec du -h {} \;
