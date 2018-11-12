@@ -9,3 +9,4 @@ docker push bkake/admin-dashboard;
 docker push bkake/hystrix-dashboard;
 docker push bkake/zipkin-service;
 docker push bkake/discovery-service;
+docker push bkake/config-service;
