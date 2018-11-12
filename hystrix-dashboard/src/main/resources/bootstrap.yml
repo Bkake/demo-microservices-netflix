@@ -4,7 +4,7 @@ server:
 spring:
   application:
     name: hystrix-dashboard
-
   cloud:
     config:
-      uri: http://config-service:8888
+      uri: ${CONFIG_SERVER_URL}
+      fail-fast: true
