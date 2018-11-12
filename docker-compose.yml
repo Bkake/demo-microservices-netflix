@@ -1,7 +1,18 @@
 version: "3.1"
 services:
+  config-service:
+     image: bkake/config-service
+     restart: always
+     ports:
+       - "8888:8888"
+     env_file:
+       - ./gitconf.env
+     networks:
+       - backend
+
   discovery:
     image: bkake/discovery-service
+    restart: always
     ports:
       - "8761:8761"
     depends_on:
@@ -13,6 +24,7 @@ services:
 
   category-service:
     image: bkake/category-service
+    restart: always
     ports:
       - "8181:8181"
     depends_on:
@@ -28,6 +40,7 @@ services:
 
   author-service:
     image: bkake/author-service
+    restart: always
     ports:
       - "8282:8282"
     depends_on:
@@ -43,6 +56,7 @@ services:
 
   new-service:
     image: bkake/new-service
+    restart: always
     ports:
       - "8383:8383"
     depends_on:
@@ -58,6 +72,7 @@ services:
 
   gateway:
     image: bkake/gateway-service
+    restart: always
     ports:
       - "8762:8762"
     depends_on:
@@ -76,6 +91,7 @@ services:
 
   zipkin:
     image: bkake/zipkin-service
+    restart: always
     ports:
       - "9411:9411"
     depends_on:
@@ -89,6 +105,7 @@ services:
 
   hystrix-dashboard:
     image: bkake/hystrix-dashboard
+    restart: always
     ports:
       - "8763:8763"
     depends_on:
@@ -102,6 +119,7 @@ services:
 
   admin-dashboard:
     image: bkake/admin-dashboard
+    restart: always
     ports:
       - "8764:8764"
     depends_on:
@@ -113,6 +131,6 @@ services:
       - ./eureka.env
       - ./config.env
 
-#networks:
-#  backend:
-#    driver: bridge
+networks:
+  backend:
+    driver: bridge
