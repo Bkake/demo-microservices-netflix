@@ -12,4 +12,5 @@ cd ./new-service; mvn clean; cd -
 cd ./gateway-service; mvn clean; cd -
 cd ./hystrix-dashboard; mvn clean; cd -
 cd ./admin-dashboard; mvn clean; cd -
-cd ./config-service; mvn clean package; cd -
+cd ./config-service; mvn clean; cd -
+cd ./security-service; mvn clean; cd -
